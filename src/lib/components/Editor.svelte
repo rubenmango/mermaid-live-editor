@@ -68,6 +68,7 @@
               data-testid={TID.aiRepairButton}
               href={urls.current.mermaidChart({ medium: 'ai_repair' }).save}
               target="_blank"
+              rel="noopener noreferrer"
               onclick={() => logMermaidChartClick('aiRepair')}>
               <MermaidChartIcon />
               AI Repair

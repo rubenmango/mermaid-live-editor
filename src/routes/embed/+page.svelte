@@ -92,6 +92,7 @@
           variant="ghost"
           size="icon"
           title="Toggle light / dark"
+          aria-label="Toggle light / dark"
           onclick={flipMode}>
           {#if settings.mode === 'dark'}
             <LightModeIcon />

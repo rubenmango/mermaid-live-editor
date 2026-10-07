@@ -1,13 +1,13 @@
 <script lang="ts">
-  import { Button } from '$/components/ui/button';
   import { getCheckoutUrl } from '$/util/util';
   import type { Snippet } from 'svelte';
 
   interface Props {
     closeBanner: Snippet;
+    onBannerClick?: () => void;
   }
 
-  let { closeBanner }: Props = $props();
+  let { closeBanner, onBannerClick }: Props = $props();
 
   const url = getCheckoutUrl({ utmCampaign: 'oss_coupon', utmMedium: 'banner_ad' });
 </script>
@@ -17,14 +17,16 @@
     <a
       href={url}
       target="_blank"
-      class="col-start-1 row-start-1 flex items-center justify-center gap-4 no-underline">
+      rel="noopener noreferrer"
+      class="col-start-1 row-start-1 flex items-center justify-center gap-4 no-underline"
+      onclick={onBannerClick}>
       <span class="text-base tracking-wider text-white">
         Try Mermaid Advanced Editor — OSS users get 10% off with code JS26
       </span>
-      <Button
-        class="shrink-0 rounded-md bg-[#1E1A2E] px-3 py-1.5 text-base font-semibold tracking-wide text-white hover:bg-[#261A56]">
+      <span
+        class="inline-flex shrink-0 items-center rounded-md bg-[#1E1A2E] px-3 py-1.5 text-base font-semibold tracking-wide text-white">
         Get started
-      </Button>
+      </span>
     </a>
   </div>
   {@render closeBanner()}

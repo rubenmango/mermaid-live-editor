@@ -20,6 +20,7 @@
   data-testid={TID.diagramDocumentationButton}
   href={doc.url}
   target="_blank"
+  rel="noopener noreferrer"
   title="View documentation for {doc.key.replace('Diagram', '')} diagram">
   <BookIcon />
   Docs

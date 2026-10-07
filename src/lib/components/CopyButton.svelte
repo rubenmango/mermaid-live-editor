@@ -16,12 +16,13 @@
 <Button
   onclick={async (event) => {
     try {
+      await onclick(event);
       showCheckIcon = true;
       setTimeout(() => {
         showCheckIcon = false;
       }, 1000);
-      await onclick(event);
     } catch {
+      showCheckIcon = false;
       notify('Failed to copy');
     }
   }}>

@@ -93,6 +93,7 @@
   <a
     href={options.href}
     target="_blank"
+    rel="noopener noreferrer"
     onclick={options.onclick}
     class={cn(
       'flex items-center justify-start gap-2 border-b-2 p-2 px-3 hover:bg-muted',
@@ -126,13 +127,14 @@
       Dark Mode
     </span>
     <Switch
+      aria-label="Dark Mode"
       checked={mode.current === 'dark'}
       onCheckedChange={(dark) => setMode(dark ? 'dark' : 'light')} />
   </div>
 {/snippet}
 
 <Popover.Root>
-  <Popover.Trigger class="shrink-0">
+  <Popover.Trigger class="shrink-0" aria-label="Open menu">
     <MenuIcon class="size-6" />
   </Popover.Trigger>
   <Popover.Content align="start" class="flex flex-col overflow-hidden border-2 p-0" sideOffset={16}>

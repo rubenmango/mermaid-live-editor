@@ -56,17 +56,13 @@
 
 {#if activePromotion}
   <div class="top-bar z-10 flex h-fit w-full bg-primary">
-    <div
-      class="flex grow"
-      role="button"
-      tabindex="0"
-      onclick={trackBannerClick}
-      onkeypress={trackBannerClick}>
-      <activePromotion.component {closeBanner} />
+    <div class="flex grow">
+      <activePromotion.component {closeBanner} onBannerClick={trackBannerClick} />
     </div>
     {#snippet closeBanner()}
       <Button
         title="Dismiss banner"
+        aria-label="Dismiss banner"
         variant="ghost"
         class="hover:bg-transparent hover:text-[#261A56]"
         size="sm"

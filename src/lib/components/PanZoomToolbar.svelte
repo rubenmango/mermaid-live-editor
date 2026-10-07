@@ -24,7 +24,12 @@
 </script>
 
 <FloatingToolbar>
-  <Button variant="ghost" size="icon" title="Reset view" onclick={() => panZoomState.reset()}>
+  <Button
+    variant="ghost"
+    size="icon"
+    title="Reset view"
+    aria-label="Reset view"
+    onclick={() => panZoomState.reset()}>
     <ArrowsToCircleIcon />
   </Button>
   <Separator orientation="vertical" />
@@ -33,6 +38,7 @@
     size="icon"
     class={zoomClass}
     title="Zoom out"
+    aria-label="Zoom out"
     onclick={() => panZoomState.zoomOut()}>
     <MagnifyingGlassMinusIcon />
   </Button>
@@ -41,12 +47,20 @@
     size="icon"
     class={zoomClass}
     title="Zoom in"
+    aria-label="Zoom in"
     onclick={() => panZoomState.zoomIn()}>
     <MagnifyingGlassPlusIcon />
   </Button>
   {#if fullScreenHref}
     <Separator orientation="vertical" class={zoomClass} />
-    <Button variant="ghost" size="icon" title="Full Screen" href={fullScreenHref} target="_blank">
+    <Button
+      variant="ghost"
+      size="icon"
+      title="Full Screen"
+      aria-label="Full Screen"
+      href={fullScreenHref}
+      target="_blank"
+      rel="noopener noreferrer">
       <ExpandIcon />
     </Button>
   {/if}

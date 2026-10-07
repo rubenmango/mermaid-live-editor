@@ -29,15 +29,26 @@
     shouldCheckDiagramType &&
       describeDiagram(validatedState.current.diagramType)?.externalServices === false
   );
+
+  // The tooltip trigger defaults to a <button>. These hosts wrap an existing
+  // button or link, so keep the hover handlers and drop the extra tab stop.
+  const hoverProps = (props: Record<string, unknown>) =>
+    Object.fromEntries(
+      Object.entries(props).filter(([key]) => !['disabled', 'tabindex', 'type'].includes(key))
+    );
 </script>
 
 {#if isVisible}
   <Tooltip.Provider>
     <Tooltip.Root delayDuration={100}>
       <Tooltip.Trigger>
-        <div class={[shouldDisableComponent && 'pointer-events-none cursor-not-allowed grayscale']}>
-          {@render children()}
-        </div>
+        {#snippet child({ props })}
+          <span
+            {...hoverProps(props)}
+            class={[shouldDisableComponent && 'pointer-events-none cursor-not-allowed grayscale']}>
+            {@render children()}
+          </span>
+        {/snippet}
       </Tooltip.Trigger>
       {#if showPopup}
         <Tooltip.Content {side} class="bg-secondary shadow-xl">

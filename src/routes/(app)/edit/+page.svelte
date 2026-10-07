@@ -104,6 +104,7 @@
           size="sm"
           href={getContactSalesUrl()}
           target="_blank"
+          rel="noopener noreferrer"
           onclick={() => logMermaidChartClick('contactSales')}>
           <MermaidChartIcon />
           Contact sales
@@ -115,6 +116,7 @@
           size="sm"
           href={urls.current.mermaidChart({ medium: 'save_diagram' }).save}
           target="_blank"
+          rel="noopener noreferrer"
           onclick={() => logMermaidChartClick('saveDiagram')}>
           <MermaidChartIcon />
           Save diagram

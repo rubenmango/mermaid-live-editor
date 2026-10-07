@@ -133,14 +133,16 @@
         variant="ghost"
         id="uploadHistory"
         onclick={uploadHistory}
-        title="Upload history"><UploadIcon /></Button>
+        title="Upload history"
+        aria-label="Upload history"><UploadIcon /></Button>
       {#if historyState.entries.length > 0}
         <Button
           id="downloadHistory"
           size="icon"
           variant="ghost"
           onclick={downloadHistory}
-          title="Download history"><DownloadIcon /></Button>
+          title="Download history"
+          aria-label="Download history"><DownloadIcon /></Button>
       {/if}
       <Separator orientation="vertical" />
       <Button
@@ -148,7 +150,8 @@
         size="icon"
         variant="ghost"
         onclick={saveHistory}
-        title="Save current state"><SaveIcon /></Button>
+        title="Save current state"
+        aria-label="Save current state"><SaveIcon /></Button>
       {#if historyState.mode !== 'loader'}
         <Button
           id="clearHistory"
@@ -156,7 +159,8 @@
           variant="ghost"
           class="hover:text-destructive"
           onclick={clearAll}
-          title="Delete all saved states"><TrashAltIcon /></Button>
+          title="Delete all saved states"
+          aria-label="Delete all saved states"><TrashAltIcon /></Button>
       {/if}
     </div>
   {/snippet}
@@ -171,7 +175,7 @@
                   <a
                     href={url}
                     target="_blank"
-                    rel="noopener"
+                    rel="noopener noreferrer"
                     title="Open revision in new tab"
                     class="min-w-0 truncate text-blue-500 hover:underline">{name}</a>
                 {:else if editingId === id}
@@ -194,6 +198,7 @@
                       type="button"
                       class="shrink-0 opacity-50 hover:opacity-100"
                       title="Rename"
+                      aria-label="Rename"
                       onclick={() => {
                         editingId = id;
                         editValue = name ?? '';
@@ -215,16 +220,18 @@
               <Button
                 href={openUrl}
                 target="_blank"
-                rel="noopener"
+                rel="noopener noreferrer"
                 size="icon"
                 variant="ghost"
-                title="Open in new tab">
+                title="Open in new tab"
+                aria-label="Open in new tab">
                 <OpenInNewIcon />
               </Button>
               <Button
                 size="icon"
                 variant="ghost"
                 title="Restore this version"
+                aria-label="Restore this version"
                 onclick={() => restoreHistoryItem(state)}>
                 <UndoIcon />
               </Button>
@@ -234,6 +241,7 @@
                   variant="ghost"
                   class="hover:text-destructive"
                   title="Delete this version"
+                  aria-label="Delete this version"
                   onclick={() => removeEntry(id)}>
                   <TrashAltIcon />
                 </Button>

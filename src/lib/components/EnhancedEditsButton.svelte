@@ -88,6 +88,7 @@
         campaign: currentAction.campaign
       }).save}
       target="_blank"
+      rel="noopener noreferrer"
       onclick={() => logMermaidChartClick(currentAction.source)}>
       <MermaidChartIcon />
       Edit

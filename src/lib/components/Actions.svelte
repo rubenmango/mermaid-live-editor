@@ -11,6 +11,9 @@
   import { getDomain } from '$/util/util';
   import { browser } from '$app/environment';
   import { waitForRender } from '$lib/util/autoSync';
+  import { writeCanvasToClipboard } from '$lib/util/actions/clipboardImage';
+  import { gistNavigation } from '$lib/util/actions/gistUrl';
+  import { notify } from '$lib/util/notify';
   import { inputState, updateCodeStore, urls, validatedState } from '$lib/util/state.svelte';
   import { logEvent } from '$lib/util/stats';
   import { version as FAVersion } from '@fortawesome/fontawesome-free/package.json';
@@ -22,7 +25,10 @@
 
   const FONT_AWESOME_URL = `https://cdnjs.cloudflare.com/ajax/libs/font-awesome/${FAVersion}/css/all.min.css`;
 
-  type Exporter = (context: CanvasRenderingContext2D, image: HTMLImageElement) => () => void;
+  type Exporter = (
+    context: CanvasRenderingContext2D,
+    image: HTMLImageElement
+  ) => () => void | Promise<void>;
 
   const getFileName = (extension: string) =>
     `mermaid-diagram-${dayjs().format('YYYY-MM-DD-HHmmss')}.${extension}`;
@@ -105,10 +111,27 @@ ${svgString}`);
     a.remove();
   };
 
+  const restorePanZoom = () => {
+    if (!inputState.panZoom) {
+      updateCodeStore({ panZoom: true });
+    }
+  };
+
   const exportImage = async (event: Event, exporter: Exporter) => {
+    event.stopPropagation();
+    event.preventDefault();
     updateCodeStore({ panZoom: false });
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    await waitForRender();
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      await waitForRender();
+      await renderExport(exporter);
+    } catch (error) {
+      restorePanZoom();
+      throw error;
+    }
+  };
+
+  const renderExport = async (exporter: Exporter) => {
     const canvas = document.createElement('canvas');
     const svg = document.querySelector<HTMLElement>('#container svg');
     if (!svg) {
@@ -147,20 +170,29 @@ ${svgString}`);
     context.fillRect(0, 0, canvas.width, canvas.height);
 
     const image = new Image();
-    image.addEventListener('load', () => {
-      exporter(context, image)();
-      updateCodeStore({ panZoom: true });
+    await new Promise<void>((resolve, reject) => {
+      image.addEventListener('load', () => {
+        Promise.resolve()
+          .then(() => exporter(context, image)())
+          .then(() => {
+            restorePanZoom();
+            resolve();
+          })
+          .catch((error: unknown) => {
+            restorePanZoom();
+            reject(error instanceof Error ? error : new Error('Export failed'));
+          });
+      });
+      image.addEventListener('error', () => {
+        restorePanZoom();
+        reject(new Error('Could not render the diagram'));
+      });
+      image.src = `data:image/svg+xml;base64,${getBase64SVG(svg, canvas.width, canvas.height)}`;
+      // Fallback if the image never loads or errors.
+      setTimeout(() => {
+        restorePanZoom();
+      }, 2000);
     });
-    image.src = `data:image/svg+xml;base64,${getBase64SVG(svg, canvas.width, canvas.height)}`;
-    // Fallback to set panZoom to true after 2 seconds
-    // This is a workaround for the case when the image is not loaded
-    setTimeout(() => {
-      if (!inputState.panZoom) {
-        updateCodeStore({ panZoom: true });
-      }
-    }, 2000);
-    event.stopPropagation();
-    event.preventDefault();
   };
 
   const downloadImage: Exporter = (context, image) => {
@@ -182,20 +214,7 @@ ${svgString}`);
     return () => {
       const { canvas } = context;
       context.drawImage(image, 0, 0, canvas.width, canvas.height);
-      canvas.toBlob((blob) => {
-        try {
-          if (!blob) {
-            throw new Error('blob is empty');
-          }
-          void navigator.clipboard.write([
-            new ClipboardItem({
-              [blob.type]: blob
-            })
-          ]);
-        } catch (error) {
-          console.error(error);
-        }
-      });
+      return writeCanvasToClipboard(canvas);
     };
   };
 
@@ -208,10 +227,14 @@ ${svgString}`);
   };
 
   const onDownloadPNG = async (event: Event) => {
-    await exportImage(event, downloadImage);
-    logEvent('download', {
-      type: 'png'
-    });
+    try {
+      await exportImage(event, downloadImage);
+      logEvent('download', {
+        type: 'png'
+      });
+    } catch {
+      notify('Failed to download PNG');
+    }
   };
 
   const onDownloadSVG = () => {
@@ -230,10 +253,14 @@ ${svgString}`);
   });
 
   const loadGist = () => {
-    if (!gistURL) {
-      return alert('Please enter a Gist URL first');
+    const result = gistNavigation(window.location.pathname, gistURL);
+    if (!result.ok) {
+      notify(
+        result.reason === 'empty' ? 'Enter a Gist URL first' : 'Enter a valid GitHub Gist URL'
+      );
+      return;
     }
-    window.location.href = `${window.location.pathname}?gist=${gistURL}`;
+    window.location.href = result.href;
     logEvent('loadGist');
   };
 
@@ -260,7 +287,13 @@ ${svgString}`);
       {text}
     </Button>
     <ExternalLinkWrapper domain={getDomain(url)} isVisible={!!url}>
-      <Button class="rounded-l-none" href={url} target="_blank" rel="noreferrer noopener">
+      <Button
+        class="rounded-l-none"
+        href={url}
+        target="_blank"
+        rel="noopener noreferrer"
+        title="Open {text} in a new tab"
+        aria-label="Open {text} in a new tab">
         <ExternalLinkIcon />
       </Button>
     </ExternalLinkWrapper>
@@ -291,11 +324,13 @@ ${svgString}`);
       {@render dualActionButton('PNG', onDownloadPNG, urls.current.png)}
       {@render dualActionButton('SVG', onDownloadSVG, urls.current.svg)}
       <ExternalLinkWrapper domain={getDomain(urls.current.kroki)} isVisible={!!urls.current.kroki}>
-        <a target="_blank" rel="noreferrer" class="flex-grow" href={urls.current.kroki}>
-          <Button class="action-btn flex w-full items-center gap-2">
-            <ExternalLinkIcon /> Kroki
-          </Button>
-        </a>
+        <Button
+          class="action-btn flex w-full flex-grow items-center gap-2"
+          href={urls.current.kroki}
+          target="_blank"
+          rel="noopener noreferrer">
+          <ExternalLinkIcon /> Kroki
+        </Button>
       </ExternalLinkWrapper>
     </div>
     <Separator />

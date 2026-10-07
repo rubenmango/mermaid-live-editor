@@ -11,7 +11,7 @@ dayjs.extend(duration);
 interface Promotion {
   startDate: Date;
   endDate: Date;
-  component: Component<{ closeBanner: Snippet }>;
+  component: Component<{ closeBanner: Snippet; onBannerClick?: () => void }>;
   hideDurationMs: number;
 }
 

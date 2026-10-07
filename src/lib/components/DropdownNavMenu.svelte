@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Button } from '$/components/ui/button';
+  import { buttonVariants } from '$/components/ui/button';
   import * as Popover from '$/components/ui/popover';
   import type { Component } from 'svelte';
 
@@ -13,10 +13,8 @@
 </script>
 
 <Popover.Root>
-  <Popover.Trigger class="flex items-center gap-0">
-    <Button variant="ghost" size="sm">
-      <props.icon class={props.class} />
-    </Button>
+  <Popover.Trigger aria-label="GitHub" class={buttonVariants({ variant: 'ghost', size: 'sm' })}>
+    <props.icon class={props.class} />
   </Popover.Trigger>
   <Popover.Content>
     <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
@@ -28,6 +26,7 @@
             tabindex="0"
             class="whitespace-nowrap underline"
             target="_blank"
+            rel="noopener noreferrer"
             {href}>
             {title}
           </a>

@@ -1,5 +1,6 @@
 <script lang="ts">
   import ExternalLinkWrapper from '$/components/ExternalLinkWrapper.svelte';
+  import { buttonVariants } from '$/components/ui/button';
   import * as Dialog from '$/components/ui/dialog';
   import { env } from '$/util/env';
   import { isOnMermaidLive } from '$/util/migration/domainMigration';
@@ -7,12 +8,21 @@
 </script>
 
 {#if env.privacyPolicyUrl}
-  <a href={env.privacyPolicyUrl} target="_blank">
+  <a
+    href={env.privacyPolicyUrl}
+    target="_blank"
+    rel="noopener noreferrer"
+    title="Privacy & Security"
+    aria-label="Privacy & Security"
+    class={buttonVariants({ variant: 'ghost', size: 'icon' })}>
     <ShieldIcon />
   </a>
 {:else}
   <Dialog.Root>
-    <Dialog.Trigger>
+    <Dialog.Trigger
+      class={buttonVariants({ variant: 'ghost', size: 'icon' })}
+      title="Privacy & Security"
+      aria-label="Privacy & Security">
       <ShieldIcon />
     </Dialog.Trigger>
     <Dialog.Content class="max-h-full overflow-hidden overflow-y-auto p-12">
@@ -30,10 +40,13 @@
           This is a fully open source, client-side app deployed on <a
             href="https://github.com/mermaid-js/mermaid-live-editor/deployments"
             class="underline"
-            target="_blank">GitHub Pages</a>
+            target="_blank"
+            rel="noopener noreferrer">GitHub Pages</a>
           that works offline as a
-          <a href="https://web.dev/explore/progressive-web-apps" target="_blank"
-            >Progressive Web App</a
+          <a
+            href="https://web.dev/explore/progressive-web-apps"
+            target="_blank"
+            rel="noopener noreferrer">Progressive Web App</a>
           >.
         </p>
         <p>
@@ -41,7 +54,8 @@
           metadata (diagram types, feature usage, etc.). All data is <a
             href="https://p.mermaid.live/mermaid.live"
             class="underline"
-            target="_blank">publicly available</a
+            target="_blank"
+            rel="noopener noreferrer">publicly available</a
           >.
         </p>
         <ExternalLinkWrapper domain="example.com" isVisible>
