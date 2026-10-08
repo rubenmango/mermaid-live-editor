@@ -14,7 +14,7 @@
   import SaveIcon from '~icons/material-symbols/save-outline-rounded';
   import UndoIcon from '~icons/material-symbols/settings-backup-restore-rounded';
   import UploadIcon from '~icons/material-symbols/upload-rounded';
-  import HistoryIcon from '~icons/mdi/clock-outline';
+  import HistoryIcon from '~icons/material-symbols/schedule-outline-rounded';
   import GitAltIcon from '~icons/mdi/git';
   import OpenInNewIcon from '~icons/material-symbols/open-in-new-rounded';
   import { Button } from '../ui/button';

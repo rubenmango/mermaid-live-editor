@@ -20,11 +20,11 @@
       rel="noopener noreferrer"
       class="col-start-1 row-start-1 flex items-center justify-center gap-4 no-underline"
       onclick={onBannerClick}>
-      <span class="text-base tracking-wider text-white">
+      <span class="text-base font-normal text-white">
         Try Mermaid Advanced Editor — OSS users get 10% off with code JS26
       </span>
       <span
-        class="inline-flex shrink-0 items-center rounded-md bg-[#1E1A2E] px-3 py-1.5 text-base font-semibold tracking-wide text-white">
+        class="inline-flex h-8 shrink-0 items-center rounded-md bg-[#1E1A2E] px-3 text-xs font-medium text-white">
         Get started
       </span>
     </a>

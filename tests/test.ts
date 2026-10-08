@@ -86,7 +86,7 @@ export class EditorPage {
   }
 
   async setEditorMode(mode: 'Code' | 'Config') {
-    await this.page.getByRole('tab').getByText(mode).click();
+    await this.page.getByRole('radio', { name: mode }).click();
   }
 
   async checkDocURL(url: string | RegExp) {

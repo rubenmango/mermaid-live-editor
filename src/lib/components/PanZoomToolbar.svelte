@@ -20,7 +20,7 @@
     panZoomState: PanZoomState;
   } = $props();
 
-  const zoomClass = $derived(compact ? undefined : 'hidden sm:block');
+  const zoomClass = $derived(compact ? undefined : 'hidden sm:inline-flex');
 </script>
 
 <FloatingToolbar>

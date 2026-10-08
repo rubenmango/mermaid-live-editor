@@ -19,12 +19,13 @@
   let aiPromptPopupElement: HTMLDivElement | undefined = $state();
   let editor: monaco.editor.IStandaloneCodeEditor | undefined;
   let editorOptions = {
+    glyphMargin: true,
+    lineNumbersMinChars: 4,
     minimap: {
       enabled: false
     },
     overviewRulerLanes: 0,
-    glyphMargin: true,
-    lineNumbersMinChars: 4
+    wordWrap: 'on'
   } satisfies monaco.editor.IStandaloneEditorConstructionOptions;
   let currentText = '';
   let isUpdatingFromState = false;
@@ -245,29 +246,32 @@
         window.open(
           urls.current.mermaidChart({ medium: 'vibe_diagramming' }).save,
           '_blank',
-          'noopener'
+          'noopener,noreferrer'
         );
-        closePopup();
       }} />
   </div>
 </div>
 
 <style>
-  :global(.suggestion-icon) {
-    background-color: #e8eaf9;
+  :global(#editor .suggestion-icon) {
+    position: relative;
+    background-color: var(--primary);
     width: 20px !important;
     height: 20px !important;
     margin-left: 4px;
-    background-image: url('/icons/use-chat.svg');
-    background-size: 16px 16px;
-    background-repeat: no-repeat;
-    background-position: center;
-    border-radius: 4px;
+    border-radius: 6px;
     cursor: pointer;
   }
 
-  :global(#editor.mermaid-dark .suggestion-icon) {
-    background-color: #2e4d6b;
-    background-image: url('/icons/use-chat-dark.svg');
+  :global(#editor .suggestion-icon::after) {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: var(--accent);
+    mask: url('/icons/use-chat.svg') center / 16px 16px no-repeat;
+  }
+
+  :global(#editor .suggestion-icon:hover) {
+    background-color: color-mix(in srgb, var(--primary), black 12%);
   }
 </style>

@@ -30,6 +30,14 @@
     --muted-foreground: hsl(215.4 16.3% 46.9%);
     --accent: hsl(340 100% 44%);
     --accent-foreground: hsl(210 40% 98%);
+    --ai-ink: #e0095f;
+    --ai-tint: #feeef4;
+    --ai-edge: #f84594;
+    --flow: #5d55d4;
+    --flow-foreground: #ffffff;
+    --flow-ink: #5d55d4;
+    --flow-tint: #efeefb;
+    --flow-edge: #8a84e3;
     --destructive: hsl(0 72.22% 50.59%);
     --destructive-foreground: hsl(210 40% 98%);
     --border: hsl(214.3 31.8% 91.4%);
@@ -53,6 +61,14 @@
     --muted-foreground: hsl(215 20.2% 65.1%);
     --accent: hsl(340 100% 44%);
     --accent-foreground: hsl(210 40% 98%);
+    --ai-ink: #ff8ab4;
+    --ai-tint: color-mix(in srgb, #f84594 16%, transparent);
+    --ai-edge: #f84594;
+    --flow: #5d55d4;
+    --flow-foreground: #ffffff;
+    --flow-ink: #b7b2ff;
+    --flow-tint: color-mix(in srgb, #5d55d4 24%, transparent);
+    --flow-edge: #8a84e3;
     --destructive: hsl(0 62.8% 30.6%);
     --destructive-foreground: hsl(210 40% 98%);
     --border: hsl(217.2 32.6% 17.5%);
@@ -87,6 +103,14 @@
   --color-secondary-foreground: var(--secondary-foreground);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
+  --color-ai-edge: var(--ai-edge);
+  --color-ai-ink: var(--ai-ink);
+  --color-ai-tint: var(--ai-tint);
+  --color-flow: var(--flow);
+  --color-flow-edge: var(--flow-edge);
+  --color-flow-foreground: var(--flow-foreground);
+  --color-flow-ink: var(--flow-ink);
+  --color-flow-tint: var(--flow-tint);
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
   --color-ring: var(--ring);
@@ -112,6 +136,12 @@
 
 body {
   font-family: 'Recursive Variable', sans-serif;
+  /* Linear cut: no casual or cursive, so labels and the banner share one face. */
+  font-variation-settings:
+    'MONO' 0,
+    'CASL' 0,
+    'CRSV' 0,
+    'slnt' 0;
 }
 
 .d {

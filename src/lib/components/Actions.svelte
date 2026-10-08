@@ -21,6 +21,7 @@
   import { toBase64 } from 'js-base64';
   import DownloadIcon from '~icons/material-symbols/download';
   import ExternalLinkIcon from '~icons/material-symbols/open-in-new-rounded';
+  import ShareNodesIcon from '~icons/material-symbols/share-outline-rounded';
   import WidthIcon from '~icons/material-symbols/width-rounded';
 
   const FONT_AWESOME_URL = `https://cdnjs.cloudflare.com/ajax/libs/font-awesome/${FAVersion}/css/all.min.css`;
@@ -300,8 +301,8 @@ ${svgString}`);
   </div>
 {/snippet}
 
-<Card title="Actions" isStackable icon={{ component: DownloadIcon, class: 'rotate-180' }}>
-  <div class="flex min-w-fit flex-col gap-2 p-2">
+<Card title="Actions" isStackable icon={{ component: ShareNodesIcon }}>
+  <div class="flex min-w-fit flex-col gap-2 px-3 py-2">
     <div class="flex w-full items-center gap-2 py-2 whitespace-nowrap">
       PNG size
       <ToggleGroup.Root type="single" variant="outline" bind:value={imageSizeMode}>
@@ -311,7 +312,7 @@ ${svgString}`);
       </ToggleGroup.Root>
       {#if imageSizeMode !== 'auto'}
         <WidthIcon
-          class={['size-6 shrink-0 transition-all', imageSizeMode === 'width' && 'rotate-90']} />
+          class={['size-5 shrink-0 transition-all', imageSizeMode === 'width' && 'rotate-90']} />
       {/if}
       <Input
         type="number"

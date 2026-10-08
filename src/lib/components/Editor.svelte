@@ -1,9 +1,9 @@
 <script lang="ts">
+  import { chromeIconClass } from '$/components/chrome/chrome';
   import DesktopEditor from '$/components/DesktopEditor.svelte';
+  import ProductButton from '$/components/actions/ProductButton.svelte';
   import McWrapper from '$/components/McWrapper.svelte';
-  import MermaidChartIcon from '$/components/MermaidChartIcon.svelte';
   import MobileEditor from '$/components/MobileEditor.svelte';
-  import { Button } from '$/components/ui/button';
   import { TID } from '$/constants';
   import { env } from '$/util/env';
   import { updateCode, updateConfig, urls, validatedState } from '$lib/util/state.svelte';
@@ -50,7 +50,7 @@
     <div class="flex flex-col text-sm" data-testid={TID.errorContainer}>
       <div class="flex items-center justify-between gap-2 bg-slate-900 p-2 text-white">
         <div class="flex w-fit items-center gap-2">
-          <ExclamationCircleIcon class="size-6 text-destructive" aria-hidden="true" />
+          <ExclamationCircleIcon class={[chromeIconClass, 'text-destructive']} aria-hidden="true" />
           <div class="flex flex-col">
             <p>Syntax error</p>
             {#if env.isEnabledMermaidChartLinks && validatedState.current.editorMode === 'code'}
@@ -62,22 +62,21 @@
         </div>
         {#if validatedState.current.editorMode === 'code'}
           <McWrapper>
-            <Button
-              variant="accent"
+            <ProductButton
+              product="ai"
+              tone="solid"
               size="sm"
               data-testid={TID.aiRepairButton}
               href={urls.current.mermaidChart({ medium: 'ai_repair' }).save}
-              target="_blank"
-              rel="noopener noreferrer"
               onclick={() => logMermaidChartClick('aiRepair')}>
-              <MermaidChartIcon />
               AI Repair
-            </Button>
+            </ProductButton>
           </McWrapper>
         {/if}
       </div>
       <output class="max-h-32 overflow-auto bg-muted p-2" name="mermaid-error" for="editor">
-        <pre>{validatedState.current.error?.toString()}</pre>
+        <pre
+          class="font-mono text-xs leading-[18px]">{validatedState.current.error?.toString()}</pre>
       </output>
     </div>
   {/if}

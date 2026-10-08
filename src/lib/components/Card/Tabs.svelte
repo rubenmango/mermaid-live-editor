@@ -1,8 +1,7 @@
 <script lang="ts">
-  import { Button } from '$/components/ui/button';
-  import { Separator } from '$/components/ui/separator';
+  import { chromeNestedRadiusClass } from '$/components/chrome/chrome';
+  import * as ToggleGroup from '$/components/ui/toggle-group';
   import type { Tab } from '$lib/types';
-  import { fade } from 'svelte/transition';
 
   let {
     tabs,
@@ -14,38 +13,45 @@
     onselect?: (tab: Tab) => void;
   } = $props();
 
-  // Derive (don't mutate the prop) so the highlight tracks a bound activeTabID.
   const effectiveTabID = $derived(activeTabID || tabs[0]?.id);
 
-  const toggleTabs = (tab: Tab) => {
-    return (event: Event) => {
-      event.stopPropagation();
+  const selectTab = (next: string | string[]) => {
+    if (typeof next !== 'string' || !next || next === effectiveTabID) {
+      return;
+    }
+    const tab = tabs.find((item) => item.id === next);
+    if (tab) {
       onselect?.(tab);
-    };
+    }
+  };
+
+  const keepCardOpen = (event: Event) => {
+    event.stopPropagation();
   };
 </script>
 
-<div class="flex w-fit cursor-default items-center gap-2">
-  <ul class="flex gap-2 align-middle" transition:fade>
-    {#each tabs as tab, index (tab.id)}
-      <Button
-        role="tab"
-        variant="ghost"
+<!--
+  Code / Config is a switcher, not a tab strip.
+  Selected uses the same primary fill as Share. Hover and press use that fill at 80%.
+  py-0 lets the label sit in the middle of the chip, so hover has the same space above and below.
+-->
+<div onclick={keepCardOpen} onkeypress={keepCardOpen}>
+  <ToggleGroup.Root
+    type="single"
+    size="sm"
+    value={effectiveTabID}
+    onValueChange={selectTab}
+    class="gap-1">
+    {#each tabs as tab (tab.id)}
+      <ToggleGroup.Item
+        value={tab.id}
         class={[
-          'px-2',
-          effectiveTabID === tab.id && 'rounded-b-none border-b-2 border-b-primary-foreground/50'
-        ]}
-        onclick={toggleTabs(tab)}
-        onkeypress={toggleTabs(tab)}>
+          chromeNestedRadiusClass,
+          'h-9 px-2 py-0 font-normal text-muted-foreground hover:bg-primary/80 hover:text-primary-foreground active:bg-primary data-[state=on]:bg-primary data-[state=on]:text-primary-foreground data-[state=on]:hover:bg-primary data-[state=on]:active:bg-primary/80'
+        ]}>
         <tab.icon />
         {tab.title}
-      </Button>
-
-      {#if index < tabs.length - 1}
-        <div class="my-2">
-          <Separator orientation="vertical" class="w-0.5 bg-slate-300" />
-        </div>
-      {/if}
+      </ToggleGroup.Item>
     {/each}
-  </ul>
+  </ToggleGroup.Root>
 </div>

@@ -86,7 +86,7 @@
         out:fade={{ duration: 1000 }}>
         <span class="text-base tracking-wider text-white">{currentTagline.label}</span>
         <span
-          class="inline-flex shrink-0 items-center rounded-md bg-[#1E1A2E] px-3 py-1.5 text-base font-semibold tracking-wide text-white">
+          class="inline-flex h-8 shrink-0 items-center rounded-md bg-[#1E1A2E] px-3 text-xs font-medium text-white">
           Try now
         </span>
       </a>

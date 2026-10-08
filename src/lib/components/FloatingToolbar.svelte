@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { chromeGroupClass } from '$/components/chrome/chrome';
   import type { Snippet } from 'svelte';
 
   interface Props {
@@ -8,6 +9,6 @@
   let { children }: Props = $props();
 </script>
 
-<div class="flex h-12 items-center justify-between gap-2 rounded-2xl bg-muted p-3">
+<div class={chromeGroupClass}>
   {@render children()}
 </div>

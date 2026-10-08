@@ -1,5 +1,6 @@
 <script lang="ts">
   import Card from '$/components/Card/Card.svelte';
+  import { chromeChipRadiusClass } from '$/components/chrome/chrome';
   import { Button, buttonVariants } from '$/components/ui/button';
   import * as Popover from '$/components/ui/popover';
   import { getSampleDiagrams, type SampleExample } from '$/util/mermaid';
@@ -70,13 +71,17 @@
 </script>
 
 <Card title="Sample Diagrams" isOpen isStackable icon={{ component: ShapesIcon }}>
-  <div class="flex h-fit max-h-52 flex-wrap gap-2 overflow-y-auto p-2">
+  <div class="flex h-fit max-h-52 flex-wrap gap-2 overflow-y-auto p-3">
     {#each diagramOrder as sample (sample)}
       {@const examples = samples[sample]}
       <div class="flex min-w-20 flex-grow">
         <Button
           size="sm"
-          class={cn('flex-grow normal-case', examples.length > 1 && 'rounded-r-none')}
+          class={cn(
+            'flex-grow normal-case',
+            chromeChipRadiusClass,
+            examples.length > 1 && 'rounded-r-none'
+          )}
           onclick={() => loadSampleDiagram(sample, examples[0])}>
           {sample}
         </Button>
@@ -85,8 +90,9 @@
             <Popover.Trigger
               aria-label="Choose a {sample} example"
               class={cn(
-                buttonVariants({ size: 'sm' }),
-                'rounded-l-none border-l border-primary-foreground/30 px-0.5 [&_svg]:size-5'
+                buttonVariants({ size: 'icon' }),
+                chromeChipRadiusClass,
+                'size-8 rounded-l-none border-l border-primary-foreground/30 p-0'
               )}>
               <ChevronDownIcon />
             </Popover.Trigger>

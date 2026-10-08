@@ -17,6 +17,7 @@
 
 <Button
   variant="ghost"
+  size="sm"
   data-testid={TID.diagramDocumentationButton}
   href={doc.url}
   target="_blank"

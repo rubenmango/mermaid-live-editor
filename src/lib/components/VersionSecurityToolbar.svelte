@@ -11,7 +11,7 @@
 </script>
 
 <FloatingToolbar>
-  <span class="text-sm font-semibold opacity-60">v{version}</span>
+  <span class="flex h-8 items-center px-1.5 text-sm font-normal opacity-60">v{version}</span>
   {#if !env.hidePrivacyPolicy}
     <Privacy />
 
@@ -23,7 +23,6 @@
     data-testid={TID.themeToggleButton}
     title="Switch to {mode.current === 'dark' ? 'light' : 'dark'} theme"
     aria-label="Switch to {mode.current === 'dark' ? 'light' : 'dark'} theme"
-    class="[&_svg]:size-5"
     onclick={() => setMode(mode.current === 'dark' ? 'light' : 'dark')}>
     <ThemeIcon />
   </Button>

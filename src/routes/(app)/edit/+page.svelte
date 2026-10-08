@@ -6,15 +6,13 @@
   import EnhancedEditsButton from '$/components/EnhancedEditsButton.svelte';
   import History from '$/components/History/History.svelte';
   import { startAutoSave } from '$/components/History/historyState.svelte';
-  import McWrapper from '$/components/McWrapper.svelte';
-  import MermaidChartIcon from '$/components/MermaidChartIcon.svelte';
   import EditorChooserModal from '$/components/migration/EditorChooserModal.svelte';
   import Navbar from '$/components/Navbar.svelte';
   import PanZoomToolbar from '$/components/PanZoomToolbar.svelte';
   import Preset from '$/components/Preset.svelte';
+  import MermaidAiGroup from '$/components/actions/MermaidAiGroup.svelte';
   import Share from '$/components/Share.svelte';
   import SyncRoughToolbar from '$/components/SyncRoughToolbar.svelte';
-  import { Button } from '$/components/ui/button';
   import { Separator } from '$/components/ui/separator';
   import * as Resizable from '$/components/ui/resizable';
   import { Switch } from '$/components/ui/switch';
@@ -26,10 +24,10 @@
   import { PanZoomState } from '$/util/panZoom';
   import { env } from '$/util/env';
   import { validatedState, updateCodeStore, urls } from '$/util/state.svelte';
-  import { logEvent, logMermaidChartClick } from '$/util/stats';
-  import { getContactSalesUrl, initHandler } from '$/util/util';
+  import { logEvent } from '$/util/stats';
+  import { initHandler } from '$/util/util';
   import { onMount } from 'svelte';
-  import CodeIcon from '~icons/custom/code';
+  import CodeIcon from '~icons/material-symbols/code-outline-rounded';
   import HistoryIcon from '~icons/material-symbols/history';
   import GearIcon from '~icons/material-symbols/settings-outline-rounded';
 
@@ -99,29 +97,7 @@
     <Share />
     {#if env.isEnabledMermaidChartLinks}
       <Separator orientation="vertical" />
-      <McWrapper labelPrefix="Opens ">
-        <Button
-          size="sm"
-          href={getContactSalesUrl()}
-          target="_blank"
-          rel="noopener noreferrer"
-          onclick={() => logMermaidChartClick('contactSales')}>
-          <MermaidChartIcon />
-          Contact sales
-        </Button>
-      </McWrapper>
-      <McWrapper>
-        <Button
-          variant="accent"
-          size="sm"
-          href={urls.current.mermaidChart({ medium: 'save_diagram' }).save}
-          target="_blank"
-          rel="noopener noreferrer"
-          onclick={() => logMermaidChartClick('saveDiagram')}>
-          <MermaidChartIcon />
-          Save diagram
-        </Button>
-      </McWrapper>
+      <MermaidAiGroup />
     {/if}
   </Navbar>
 
