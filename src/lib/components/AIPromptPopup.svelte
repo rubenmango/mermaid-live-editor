@@ -69,7 +69,7 @@
 {#if show}
   <div
     bind:this={container}
-    class="relative z-50 mr-6 flex w-auto flex-col gap-2 rounded-xl border-2 border-ai-edge bg-background p-2 shadow-xl dark:bg-secondary"
+    class="relative z-50 mr-6 flex w-auto flex-col gap-2 rounded-xl border border-accent bg-background p-2 shadow-xl dark:bg-secondary"
     role="dialog"
     aria-label="Ask AI to edit this diagram"
     aria-modal="true"
