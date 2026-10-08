@@ -60,7 +60,7 @@
       actions.unshift({
         campaign: 'visual_1',
         icon: 'eye',
-        label: 'visually',
+        label: 'diagram',
         medium: 'visual_edit',
         source: 'visualEdit'
       });

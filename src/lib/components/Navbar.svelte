@@ -55,7 +55,7 @@
 </script>
 
 {#if activePromotion}
-  <div class="top-bar z-10 flex h-fit w-full bg-primary">
+  <div class="top-bar z-10 flex h-fit w-full bg-[hsl(210_40%_30%)]">
     <div class="flex grow">
       <activePromotion.component {closeBanner} onBannerClick={trackBannerClick} />
     </div>
@@ -64,7 +64,7 @@
         title="Dismiss banner"
         aria-label="Dismiss banner"
         variant="ghost"
-        class="hover:bg-transparent hover:text-[#261A56]"
+        class="text-white hover:bg-white/10 hover:text-white"
         size="sm"
         onclick={() => {
           dismissPromotion(activePromotion?.id);

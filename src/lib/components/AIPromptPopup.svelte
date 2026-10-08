@@ -101,7 +101,7 @@
     <div class="flex items-center justify-between">
       <span class="font-recursive text-xs font-normal text-foreground dark:text-foreground"
         >Runs in mermaid.ai · free account</span>
-      <ProductButton product="ai" tone="solid" mark={false} onclick={onTryFree}>
+      <ProductButton product="ai" tone="tint" mark={false} onclick={onTryFree}>
         Continue
       </ProductButton>
     </div>

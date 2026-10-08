@@ -12,7 +12,7 @@
   const url = getCheckoutUrl({ utmCampaign: 'oss_coupon', utmMedium: 'banner_ad' });
 </script>
 
-<div class="flex w-full items-center bg-[#E0095F] p-1.5" role="banner">
+<div class="flex w-full items-center bg-[hsl(210_40%_30%)] p-1.5" role="banner">
   <div class="grid grow">
     <a
       href={url}
@@ -24,7 +24,7 @@
         Try Mermaid Advanced Editor — OSS users get 10% off with code JS26
       </span>
       <span
-        class="inline-flex h-8 shrink-0 items-center rounded-md bg-[#1E1A2E] px-3 text-xs font-medium text-white">
+        class="inline-flex h-8 shrink-0 items-center rounded-md bg-accent px-3 text-xs font-medium text-white">
         Get started
       </span>
     </a>
