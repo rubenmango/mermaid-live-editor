@@ -1,0 +1,1 @@
+import{w as e}from"./DQigbOGT.js";export{e as render};

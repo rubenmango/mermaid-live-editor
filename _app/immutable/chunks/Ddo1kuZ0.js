@@ -1,0 +1,1 @@
+import{j as e}from"./DQigbOGT.js";var t=0;function n(n){var r=++t;return e(n)+r}export{n as t};
