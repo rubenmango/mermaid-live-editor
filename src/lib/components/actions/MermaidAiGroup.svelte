@@ -24,7 +24,6 @@
     product="ai"
     tone="tint"
     size="sm"
-    class="text-foreground shadow-sm hover:text-foreground"
     href={urls.current.mermaidChart({ medium: 'save_diagram' }).save}
     onclick={() => logMermaidChartClick('saveDiagram')}>
     <CloudUploadIcon />

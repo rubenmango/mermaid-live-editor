@@ -11,7 +11,7 @@ export const productButtonVariants = tv({
     },
     {
       class:
-        'rounded-md bg-primary text-primary-foreground hover:bg-[color-mix(in_srgb,var(--primary),black_12%)] hover:text-primary-foreground [&_svg]:text-accent',
+        'rounded-md border border-accent bg-ai-chip text-white hover:border-accent hover:bg-ai-chip-hover hover:text-white active:border-accent active:bg-ai-chip-active active:text-white [&_svg]:text-white',
       product: 'ai',
       tone: 'tint'
     },

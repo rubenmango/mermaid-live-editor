@@ -12,10 +12,13 @@ describe('product button', () => {
     const classes = productButtonVariants({ product: 'ai', tone: 'tint' });
     expect(classes).toContain('rounded-md');
     expect(classes).not.toContain('rounded-full');
-    expect(classes).toContain('bg-primary');
-    expect(classes).toContain('text-primary-foreground');
-    expect(classes).toContain('[&_svg]:text-accent');
-    expect(classes).toContain('hover:bg-[color-mix(in_srgb,var(--primary),black_12%)]');
+    expect(classes).toContain('border-accent');
+    expect(classes).toContain('bg-ai-chip');
+    expect(classes).toContain('text-white');
+    expect(classes).toContain('[&_svg]:text-white');
+    expect(classes).toContain('hover:bg-ai-chip-hover');
+    expect(classes).toContain('active:bg-ai-chip-active');
+    expect(classes).not.toContain('bg-primary');
     expect(classes).not.toContain('border-2');
     expect(classes).not.toContain('ring-ai-edge');
   });

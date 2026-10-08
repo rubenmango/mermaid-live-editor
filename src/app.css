@@ -33,6 +33,9 @@
     --ai-ink: #e0095f;
     --ai-tint: #feeef4;
     --ai-edge: #f84594;
+    --ai-chip: color-mix(in srgb, var(--accent) 16%, #0c1018);
+    --ai-chip-hover: color-mix(in srgb, var(--ai-chip), black 10%);
+    --ai-chip-active: color-mix(in srgb, var(--ai-chip), black 18%);
     --flow: #5d55d4;
     --flow-foreground: #ffffff;
     --flow-ink: #5d55d4;
@@ -103,6 +106,9 @@
   --color-secondary-foreground: var(--secondary-foreground);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
+  --color-ai-chip: var(--ai-chip);
+  --color-ai-chip-active: var(--ai-chip-active);
+  --color-ai-chip-hover: var(--ai-chip-hover);
   --color-ai-edge: var(--ai-edge);
   --color-ai-ink: var(--ai-ink);
   --color-ai-tint: var(--ai-tint);

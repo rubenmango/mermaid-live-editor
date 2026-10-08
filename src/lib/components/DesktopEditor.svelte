@@ -255,10 +255,12 @@
 <style>
   :global(#editor .suggestion-icon) {
     position: relative;
-    background-color: var(--primary);
+    box-sizing: border-box;
+    background-color: var(--ai-chip);
     width: 20px !important;
     height: 20px !important;
     margin-left: 4px;
+    border: 1px solid var(--accent);
     border-radius: 6px;
     cursor: pointer;
   }
@@ -267,11 +269,15 @@
     content: '';
     position: absolute;
     inset: 0;
-    background-color: var(--accent);
+    background-color: #fff;
     mask: url('/icons/use-chat.svg') center / 16px 16px no-repeat;
   }
 
   :global(#editor .suggestion-icon:hover) {
-    background-color: color-mix(in srgb, var(--primary), black 12%);
+    background-color: var(--ai-chip-hover);
+  }
+
+  :global(#editor .suggestion-icon:active) {
+    background-color: var(--ai-chip-active);
   }
 </style>
